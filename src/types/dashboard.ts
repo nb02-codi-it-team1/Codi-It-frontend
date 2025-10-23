@@ -39,7 +39,7 @@ interface Product {
 // 가장 많이 팔린상품 정보
 export interface TopSale {
   totalOrders: number;
-  prodcuts: Product;
+  products: Product;
 }
 
 // 가격 구간별 매출 통계
