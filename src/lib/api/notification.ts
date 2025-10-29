@@ -3,6 +3,7 @@ import { useUserStore } from "@/stores/userStore";
 import { NotificationItem } from "@/types/notification";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import { getAxiosInstance } from "./axiosInstance";
+import { useApiStore } from "@/stores/useApiStore";
 
 // SSE 연결
 // SSE 연결
@@ -10,11 +11,12 @@ export const connectNotificationSSE = () => {
   const token = useUserStore.getState().accessToken;
   if (!token) return null;
   
-  const baseURL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/api"  // dev 모드에서는 직접 백엔드
-    : ""; // production에서는 /api rewrite 사용
-
+  // const baseURL =
+  // process.env.NODE_ENV === "development"
+  //   ? "http://localhost:3000/api"  // dev 모드에서는 직접 백엔드
+  //   : ""; // production에서는 /api rewrite 사용
+  const baseURL = useApiStore.getState().baseURL;
+  console.log("SSE 연결 URL:", `${baseURL}/notifications/sse`);
   const es = new EventSourcePolyfill(`${baseURL}/notifications/sse`, {
     headers: {
       Authorization: `Bearer ${token}`,
