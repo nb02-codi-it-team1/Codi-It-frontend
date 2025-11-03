@@ -6,7 +6,6 @@ import { getAxiosInstance } from "./axiosInstance";
 import { useApiStore } from "@/stores/useApiStore";
 
 // SSE 연결
-// SSE 연결
 export const connectNotificationSSE = () => {
   const token = useUserStore.getState().accessToken;
   if (!token) return null;
@@ -15,15 +14,30 @@ export const connectNotificationSSE = () => {
   // process.env.NODE_ENV === "development"
   //   ? "http://localhost:3000/api"  // dev 모드에서는 직접 백엔드
   //   : ""; // production에서는 /api rewrite 사용
-  const baseURL = useApiStore.getState().baseURL;
-  console.log("SSE 연결 URL:", `${baseURL}/notifications/sse`);
-  const es = new EventSourcePolyfill(`${baseURL}/notifications/sse`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    withCredentials: false, // Authorization 헤더 충돌 방지
-  });
+  // const baseURL = useApiStore.getState().baseURL;
+  // console.log("SSE 연결 URL:", `${baseURL}/notifications/sse`);
+  // const es = new EventSourcePolyfill(`${baseURL}/notifications/sse`, {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  //   withCredentials: false, // Authorization 헤더 충돌 방지
+  // });
 
+  const baseURL = useApiStore.getState().baseURL;
+  
+  // 💡 1. 토큰을 URL 인코딩합니다.
+  const encodedToken = encodeURIComponent(token);
+  
+  // 💡 2. URL에 쿼리 스트링으로 토큰을 추가합니다.
+ const sseUrl = `${baseURL}/notifications/sse?token=${encodedToken}`; 
+ 
+ console.log("SSE 연결 URL:", sseUrl);
+ 
+ // 💡 3. EventSourcePolyfill 생성 시, 헤더 옵션을 제거합니다.
+ const es = new EventSourcePolyfill(sseUrl, {
+  withCredentials: false, 
+  });
+  
   // 메시지 이벤트
   es.addEventListener('message', (e: MessageEvent) => {
     console.log('SSE 메시지:', e.data);
