@@ -57,7 +57,7 @@ export interface OrderItemRequest {
 
 export interface CreateOrderRequest {
   name: string;
-  phone: string;
+  phoneNumber: string;
   address: string;
   orderItems: OrderItemRequest[];
   usePoint: number;

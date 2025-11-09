@@ -8,7 +8,7 @@ export default function OrderInfoSection() {
   const { orderInfo, setOrderInfo } = useOrderStore();
 
   const handlePhoneChange = (value: string) => {
-    setOrderInfo({ phone: selectedPrefix + value });
+    setOrderInfo({ phoneNumber: selectedPrefix + value });
   };
 
   return (
@@ -35,7 +35,7 @@ export default function OrderInfoSection() {
             <input
               type="text"
               placeholder="1234-5678"
-              value={orderInfo.phone.replace(selectedPrefix, "")}
+              value={orderInfo.phoneNumber.replace(selectedPrefix, "")}
               onChange={(e) => handlePhoneChange(e.target.value)}
               className="border-gray03 w-[15.625rem] rounded-md border px-5 py-3 text-base font-normal"
             />

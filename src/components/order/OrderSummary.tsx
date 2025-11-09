@@ -49,7 +49,7 @@ export default function OrderSummary({ onClick }: OrderSummaryProps) {
 
   // 적립 예정 포인트 계산 (유저 등급에 따른 적립률 적용)
   const expectedPoints = Math.floor(total * (userGradeRate / 100));
-  const disableds = !orderInfo.name || !orderInfo.phone || !orderInfo.address;
+  const disableds = !orderInfo.name || !orderInfo.phoneNumber || !orderInfo.address;
   return (
     <div className="w-[31.25rem]">
       <div className="border-gray03 mb-5 rounded-2xl border p-10">

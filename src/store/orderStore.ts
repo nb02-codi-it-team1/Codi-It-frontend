@@ -8,7 +8,7 @@ interface OrderStore {
   // 주문 정보
   orderInfo: {
     name: string;
-    phone: string;
+    phoneNumber: string;
     address: string;
     addressDetail: string;
     usePoint: number;
@@ -26,7 +26,7 @@ const initialState = {
   selectedItems: [],
   orderInfo: {
     name: "",
-    phone: "",
+    phoneNumber: "",
     address: "",
     addressDetail: "",
     usePoint: 0,
@@ -58,7 +58,7 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
 
     return {
       name: orderInfo.name,
-      phone: orderInfo.phone,
+      phoneNumber: orderInfo.phoneNumber,
       address: fullAddress,
       usePoint: orderInfo.usePoint,
       orderItems,
